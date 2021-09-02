@@ -37,13 +37,46 @@ public class Persediaan : MonoBehaviour
 
     public float mSedikit(float inputPersediaan)
     {
-        float hasil = (this.banyak - inputPersediaan) / (this.banyak - this.sedikit);
+        float hasil;
+        if (inputPersediaan <= sedikit)
+        {
+            hasil = 1;
+        }
+        else if (inputPersediaan > sedikit && inputPersediaan < banyak)
+        {
+            hasil = (this.banyak - inputPersediaan) / (this.banyak - this.sedikit);
+        }
+        else if (inputPersediaan >= banyak)
+        {
+            hasil = 0;
+        }
+        else
+        {
+            hasil = 0;
+        }
         return hasil;
+        
     }
 
     public float mBanyak(float inputPersediaan)
     {
-        float hasil = (inputPersediaan - this.sedikit) / (this.banyak - this.sedikit);
+        float hasil;
+        if (inputPersediaan <= sedikit)
+        {
+            hasil = 1;
+        }
+        else if (inputPersediaan > sedikit && inputPersediaan < banyak)
+        {
+            hasil = (inputPersediaan - this.sedikit) / (this.banyak - this.sedikit);
+        }
+        else if (inputPersediaan >= banyak)
+        {
+            hasil = 0;
+        }
+        else
+        {
+            hasil = 0;
+        }
         return hasil;
     }
 }

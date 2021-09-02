@@ -37,13 +37,45 @@ public class Permintaan : MonoBehaviour
 
     public float mTurun(float inputPermintaan)
     {
-        float hasil = (this.naik - inputPermintaan) / (this.naik - this.turun);
+        float hasil;
+        if (inputPermintaan <= turun)
+        {
+            hasil = 1;
+        }
+        else if(inputPermintaan > turun && inputPermintaan < naik)
+        {
+            hasil = (this.naik - inputPermintaan) / (this.naik - this.turun);
+        }
+        else if(inputPermintaan >= naik)
+        {
+            hasil = 0;
+        }
+        else
+        {
+            hasil = 0;
+        }
         return hasil;
     }
 
     public float mNaik(float inputPermintaan)
     {
-        float hasil = (inputPermintaan - this.turun) / (this.naik - this.turun);
+        float hasil;
+        if (inputPermintaan <= turun)
+        {
+            hasil = 1;
+        }
+        else if (inputPermintaan > turun && inputPermintaan < naik)
+        {
+            hasil = (inputPermintaan - this.turun) / (this.naik - this.turun);
+        }
+        else if (inputPermintaan >= naik)
+        {
+            hasil = 0;
+        }
+        else
+        {
+            hasil = 0;
+        }
         return hasil;
     }
 }
