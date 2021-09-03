@@ -168,6 +168,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputPermintaan: 4000
   inputPersediaan: 300
+  fuzzyNumberBertambah: []
+  fuzzyNumberBerkurang: []
+  permintaanTurun: 1000
+  permintaanNaik: 5000
+  persediaanSedikit: 100
+  persediaanBanyak: 600
+  produksiKurang: 2000
+  produksiTambah: 7000
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
-
+using System.Linq;
 
 public static class ForEachExtensions
 {
@@ -20,8 +19,17 @@ public class FuzzyLogic : MonoBehaviour
     public float inputPermintaan, inputPersediaan;
     public List<float> fuzzyNumberBertambah;
     public List<float> fuzzyNumberBerkurang;
+    public float permintaanTurun;
+    public float permintaanNaik;
+    public float persediaanSedikit;
+    public float persediaanBanyak;
+    public float produksiKurang;
+    public float produksiTambah;
+    public List<float> defuzzifikasiBertambah;
+    public List<float> defuzzifikasiBerkurang;
+    public float centroid;
 
-    [Serializable]
+    [System.Serializable]
     public static class KomposisiAturan
     {
         public static float bertambah, berkurang;
@@ -30,9 +38,9 @@ public class FuzzyLogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Permintaan permintaan = new Permintaan(1000, 5000);
-        Persediaan persediaan = new Persediaan(100, 600);
-        Produksi produksi = new Produksi(2000, 7000);
+        Permintaan permintaan = new Permintaan(permintaanTurun, permintaanNaik);
+        Persediaan persediaan = new Persediaan(persediaanSedikit, persediaanBanyak);
+        Produksi produksi = new Produksi(produksiKurang, produksiTambah);
         
         List<Rules> RulesList = new List<Rules>();
         RulesList.Add(new Rules(permintaan.LabelTurun, persediaan.LabelBanyak, produksi.LabelBerkurang));
@@ -107,28 +115,38 @@ public class FuzzyLogic : MonoBehaviour
 
         Debug.Log("komposisi aturan berkurang " + KomposisiAturan.berkurang);
         Debug.Log("komposisi aturan bertambah " + KomposisiAturan.bertambah);
-            #region foreach_version
-            //foreach (var rules in RulesList)
-            //{
-            //    if (rules.Rules1.Equals("Turun") && rules.Rules2.Equals("Banyak"))
-            //    {
-            //        Debug.Log("Min : " + Mathf.Min(mTurun, mBanyak));
-            //    }
-            //    else if(rules.Rules1.Equals("Turun") && rules.Rules2.Equals("Sedikit"))
-            //    {
-            //        Debug.Log("Min : " + Mathf.Min(mTurun, mSedikit));
-            //    }
-            //    else if(rules.Rules1.Equals("Naik") && rules.Rules2.Equals("Banyak"))
-            //    {
-            //        Debug.Log("Min : " + Mathf.Min(mNaik, mBanyak));
-            //    }
-            //    else if (rules.Rules1.Equals("Naik") && rules.Rules2.Equals("Sedikit"))
-            //    {
-            //        Debug.Log("Min : " + Mathf.Min(mNaik, mSedikit));
-            //    }
-            //}
-            #endregion
+        int iteration = 5;
+        for (int i = 1; i <= iteration ; i++)
+        {
+            float random1 = Random.Range(produksiKurang, produksiTambah);
+            float random2 = Random.Range(produksiKurang, produksiTambah);
+            defuzzifikasiBertambah.Add(random1);
+            defuzzifikasiBerkurang.Add(random2);
         }
+        centroid = ((defuzzifikasiBertambah.Sum() * KomposisiAturan.bertambah) + (defuzzifikasiBerkurang.Sum() * KomposisiAturan.berkurang) / 
+            ( (KomposisiAturan.bertambah * defuzzifikasiBertambah.Count) + (KomposisiAturan.berkurang * defuzzifikasiBerkurang.Count) ) );
+        #region foreach_version
+        //foreach (var rules in RulesList)
+        //{
+        //    if (rules.Rules1.Equals("Turun") && rules.Rules2.Equals("Banyak"))
+        //    {
+        //        Debug.Log("Min : " + Mathf.Min(mTurun, mBanyak));
+        //    }
+        //    else if(rules.Rules1.Equals("Turun") && rules.Rules2.Equals("Sedikit"))
+        //    {
+        //        Debug.Log("Min : " + Mathf.Min(mTurun, mSedikit));
+        //    }
+        //    else if(rules.Rules1.Equals("Naik") && rules.Rules2.Equals("Banyak"))
+        //    {
+        //        Debug.Log("Min : " + Mathf.Min(mNaik, mBanyak));
+        //    }
+        //    else if (rules.Rules1.Equals("Naik") && rules.Rules2.Equals("Sedikit"))
+        //    {
+        //        Debug.Log("Min : " + Mathf.Min(mNaik, mSedikit));
+        //    }
+        //}
+        #endregion
+    }
 
     // Update is called once per frame
     void Update()
