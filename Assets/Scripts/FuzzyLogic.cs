@@ -123,8 +123,11 @@ public class FuzzyLogic : MonoBehaviour
             defuzzifikasiBertambah.Add(random1);
             defuzzifikasiBerkurang.Add(random2);
         }
-        centroid = ((defuzzifikasiBertambah.Sum() * KomposisiAturan.bertambah) + (defuzzifikasiBerkurang.Sum() * KomposisiAturan.berkurang) / 
-            ( (KomposisiAturan.bertambah * defuzzifikasiBertambah.Count) + (KomposisiAturan.berkurang * defuzzifikasiBerkurang.Count) ) );
+        centroid = ((defuzzifikasiBertambah.Sum() * KomposisiAturan.bertambah) + (defuzzifikasiBerkurang.Sum() * KomposisiAturan.berkurang)) / 
+            ( (KomposisiAturan.bertambah * defuzzifikasiBertambah.Count) + (KomposisiAturan.berkurang * defuzzifikasiBerkurang.Count) );
+        Debug.LogFormat("Deff Tambah : {0} & {1}", defuzzifikasiBertambah.Sum(), defuzzifikasiBertambah.Count);
+        Debug.LogFormat("Deff Kurang : {0} & {1}", defuzzifikasiBerkurang.Sum(), defuzzifikasiBerkurang.Count);
+
         #region foreach_version
         //foreach (var rules in RulesList)
         //{
