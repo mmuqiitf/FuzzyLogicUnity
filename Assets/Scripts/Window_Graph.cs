@@ -25,10 +25,10 @@ public class Window_Graph : MonoBehaviour
         labelTemplateY = graphContainer.Find("labelTemplateY").GetComponent<RectTransform>();
         labelCircle = graphContainer.Find("labelCircle").GetComponent<RectTransform>();
 
-        value_x.Add(0);
-        value_x.Add(1);
-        value_y.Add(1000);
-        value_y.Add(5000);
+        value_y.Add(0);
+        value_y.Add(1);
+        value_x.Add(1000);
+        value_x.Add(5000);
 
         max_x = 0;
         max_y = 0;
@@ -76,30 +76,30 @@ public class Window_Graph : MonoBehaviour
         float graphWidth = graphContainer.sizeDelta.x;
         float yMaximum = max_y;
         float xMaximum = max_x;
-        float xSize = 15f;
+        float ySize = 15f;
         
         for (int i = 0; i < value_x.Count; i++)
         {
-            float xPosition = xSize * value_x[i] * xSize;
-            float yPosition = (value_y[i] / yMaximum) * graphHeight;
+            float yPosition = ySize * value_y[i] * ySize;
+            float xPosition = (value_x[i] / xMaximum) * graphWidth;
             CreateCircle(new Vector2(xPosition, yPosition), value_x[i], value_y[i]);
             
-            RectTransform labelX = Instantiate(labelTemplateX);
-            labelX.SetParent(graphContainer);
-            labelX.gameObject.SetActive(true);
-            labelX.anchoredPosition = new Vector2(xPosition, -30f);
-            labelX.GetComponent<TMP_Text>().text = Mathf.RoundToInt(value_x[i]).ToString();
+            RectTransform labelY = Instantiate(labelTemplateY);
+            labelY.SetParent(graphContainer);
+            labelY.gameObject.SetActive(true);
+            labelY.anchoredPosition = new Vector2(-40f, yPosition);
+            labelY.GetComponent<TMP_Text>().text = Mathf.RoundToInt(value_y[i]).ToString();
         }
 
         int separator = 10;
         for (int i = 1; i <= separator; i++)
         {
             float normalizedValue = i * 1f / separator;
-            RectTransform labelY = Instantiate(labelTemplateY);
-            labelY.SetParent(graphContainer);
-            labelY.gameObject.SetActive(true);
-            labelY.anchoredPosition = new Vector2(-40f, normalizedValue * graphHeight);
-            labelY.GetComponent<TMP_Text>().text = Mathf.RoundToInt(normalizedValue * yMaximum).ToString();
+            RectTransform labelX = Instantiate(labelTemplateX);
+            labelX.SetParent(graphContainer);
+            labelX.gameObject.SetActive(true);
+            labelX.anchoredPosition = new Vector2(normalizedValue * graphWidth, -30f);
+            labelX.GetComponent<TMP_Text>().text = Mathf.RoundToInt(normalizedValue * xMaximum).ToString();
         }
     }
 }
