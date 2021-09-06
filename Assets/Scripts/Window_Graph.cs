@@ -78,13 +78,18 @@ public class Window_Graph : MonoBehaviour
                 CreateDotConnection(lastCircleGameObject.GetComponent<RectTransform>().anchoredPosition, circleGameObject.GetComponent<RectTransform>().anchoredPosition);
             }
             lastCircleGameObject = circleGameObject;
-            
-            
+
             RectTransform labelY = Instantiate(labelTemplateY);
             labelY.SetParent(graphContainer);
             labelY.gameObject.SetActive(true);
-            labelY.anchoredPosition = new Vector2(-40f, yPosition);
+            labelY.anchoredPosition = new Vector2(-30f, yPosition);
             labelY.GetComponent<TMP_Text>().text = Mathf.RoundToInt(value_y[i]).ToString();
+            
+            RectTransform labelX = Instantiate(labelTemplateX);
+            labelX.SetParent(graphContainer);
+            labelX.gameObject.SetActive(true);
+            labelX.anchoredPosition = new Vector2(xPosition, -20f);
+            labelX.GetComponent<TMP_Text>().text = Mathf.RoundToInt(value_x[i]).ToString();
         }
 
         for (int i = 0; i < value_x2.Count; i++)
@@ -98,25 +103,18 @@ public class Window_Graph : MonoBehaviour
                 CreateDotConnection(lastCircleGameObject2.GetComponent<RectTransform>().anchoredPosition, circleGameObject.GetComponent<RectTransform>().anchoredPosition);
             }
             lastCircleGameObject2 = circleGameObject;
-
-
-            RectTransform labelY = Instantiate(labelTemplateY);
-            labelY.SetParent(graphContainer);
-            labelY.gameObject.SetActive(true);
-            labelY.anchoredPosition = new Vector2(-40f, yPosition);
-            labelY.GetComponent<TMP_Text>().text = Mathf.RoundToInt(value_y2[i]).ToString();
         }
 
-        int separator = 5;
-        for (int i = 1; i <= separator; i++)
-        {
-            float normalizedValue = i * 1f / separator;
-            RectTransform labelX = Instantiate(labelTemplateX);
-            labelX.SetParent(graphContainer);
-            labelX.gameObject.SetActive(true);
-            labelX.anchoredPosition = new Vector2(normalizedValue * graphWidth, -30f);
-            labelX.GetComponent<TMP_Text>().text = Mathf.RoundToInt(normalizedValue * xMaximum).ToString();
-        }
+        // int separator = 5;
+        // for (int i = 1; i <= separator; i++)
+        // {
+        //     float normalizedValue = i * 1f / separator;
+        //     RectTransform labelX = Instantiate(labelTemplateX);
+        //     labelX.SetParent(graphContainer);
+        //     labelX.gameObject.SetActive(true);
+        //     labelX.anchoredPosition = new Vector2(normalizedValue * graphWidth, -30f);
+        //     labelX.GetComponent<TMP_Text>().text = Mathf.RoundToInt(normalizedValue * xMaximum).ToString();
+        // }
     }
 
     public void CreateDotConnection(Vector2 dotPositionA, Vector2 dotPositionB)
