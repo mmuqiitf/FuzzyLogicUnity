@@ -11,7 +11,11 @@ public class DatasetPersediaan : MonoBehaviour
     private List<float> variabelList = new List<float>();
     private List<float> value_y = new List<float>() { 0, 1 };
     public GameObject gameObject;
-
+    private void Start()
+    {
+        variabelPertama.text = 100f.ToString();
+        variabelKedua.text = 600f.ToString();
+    }
     public void Submit()
     {
         variabelList.Add(float.Parse(variabelKedua.text));

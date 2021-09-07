@@ -12,6 +12,12 @@ public class DatasetProduksi : MonoBehaviour
     private List<float> value_y = new List<float>() { 0, 1 };
     public GameObject gameObject;
 
+    private void Start()
+    {
+        variabelPertama.text = 2000f.ToString();
+        variabelKedua.text = 7000f.ToString();
+    }
+
     public void Submit()
     {
         variabelList.Add(float.Parse(variabelKedua.text));
