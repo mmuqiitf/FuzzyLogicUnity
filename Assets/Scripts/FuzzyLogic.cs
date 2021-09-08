@@ -28,8 +28,6 @@ public class FuzzyLogic : MonoBehaviour
     public float jarakJauh;
     public float criticalTidak;
     public float criticalIya;
-    public List<float> defuzzifikasiIya;
-    public List<float> defuzzifikasiTidak;
     public float hasil;
     public TabelRules tabelRules;
     public GameObject fuzzifikasi;
@@ -51,7 +49,6 @@ public class FuzzyLogic : MonoBehaviour
         Transform inputDataDamage = MenuSetting.Find("InputDataDamage");
         Transform inputDataJarak = MenuSetting.Find("InputDataJarak");
         Transform inputDataCritical = MenuSetting.Find("InputDataCritical");
-        //Debug.Log("Test " + inputDataDamage.Find("DamageSedikit").GetComponent<InputField>().text);
         damageSedikit = float.Parse(inputDataDamage.Find("DamageSedikit").GetComponent<InputField>().text);
         damageBanyak = float.Parse(inputDataDamage.Find("DamageBanyak").GetComponent<InputField>().text);
         jarakDekat = float.Parse(inputDataJarak.Find("JarakDekat").GetComponent<InputField>().text);
@@ -91,14 +88,7 @@ public class FuzzyLogic : MonoBehaviour
 
         Debug.Log("komposisi aturan tidak " + KomposisiAturan.tidak);
         Debug.Log("komposisi aturan iya " + KomposisiAturan.iya);
-        int iteration = 5;
-        for (int i = 1; i <= iteration; i++)
-        {
-            float random1 = Random.Range(criticalTidak, criticalIya);
-            float random2 = Random.Range(criticalTidak, criticalIya);
-            defuzzifikasiIya.Add(random1);
-            defuzzifikasiTidak.Add(random2);
-        }
+        
         Defuzzifikasi(hasilDefuzzifikasi);
         #region comment
         //hasil = ((defuzzifikasiIya.Sum() * KomposisiAturan.iya) + (defuzzifikasiTidak.Sum() * KomposisiAturan.tidak)) /
@@ -162,57 +152,64 @@ public class FuzzyLogic : MonoBehaviour
 
     void OperasiFuzzy(List<Rules> RulesList, GameObject operasiFuzzy)
     {
+        GameObject[] objectsToDestroy = GameObject.FindGameObjectsWithTag("CLONE");
+        foreach (GameObject go in objectsToDestroy)
+        {
+            Destroy(go);
+        }
+        fuzzyNumberIya.Clear();
+        fuzzyNumberTidak.Clear();
         #region operasi_fuzzy_log
-            //RulesList.ForEachWithIndex((rules, index) => {
-            //    if (rules.Rules1.Equals("Turun") && rules.Rules2.Equals("Banyak"))
-            //    {
-            //        Debug.LogFormat("Rules {1} : Min {0} : {2}", Mathf.Min(mSedikit, mJauh), (index + 1), rules.Output);
-            //        if (rules.Output.Equals("Iya"))
-            //        {
-            //            fuzzyNumberIya.Add(Mathf.Min(mSedikit, mJauh));
-            //        }
-            //        else if (rules.Output.Equals("Tidak"))
-            //        {
-            //            fuzzyNumberTidak.Add(Mathf.Min(mSedikit, mJauh));
-            //        }
-            //    }
-            //    else if (rules.Rules1.Equals("Turun") && rules.Rules2.Equals("Sedikit"))
-            //    {
-            //        Debug.LogFormat("Rules {1} : Min {0} : {2}", Mathf.Min(mSedikit, mDekat), (index + 1), rules.Output);
-            //        if (rules.Output.Equals("Iya"))
-            //        {
-            //            fuzzyNumberIya.Add(Mathf.Min(mSedikit, mDekat));
-            //        }
-            //        else if (rules.Output.Equals("Tidak"))
-            //        {
-            //            fuzzyNumberTidak.Add(Mathf.Min(mSedikit, mDekat));
-            //        }
-            //    }
-            //    else if (rules.Rules1.Equals("Naik") && rules.Rules2.Equals("Banyak"))
-            //    {
-            //        Debug.LogFormat("Rules {1} : Min {0} : {2}", Mathf.Min(mBanyak, mJauh), (index + 1), rules.Output);
-            //        if (rules.Output.Equals("Iya"))
-            //        {
-            //            fuzzyNumberIya.Add(Mathf.Min(mBanyak, mJauh));
-            //        }
-            //        else if (rules.Output.Equals("Tidak"))
-            //        {
-            //            fuzzyNumberTidak.Add(Mathf.Min(mBanyak, mJauh));
-            //        }
-            //    }
-            //    else if (rules.Rules1.Equals("Naik") && rules.Rules2.Equals("Sedikit"))
-            //    {
-            //        Debug.LogFormat("Rules {1} : Min {0} : {2}", Mathf.Min(mBanyak, mDekat), (index + 1), rules.Output);
-            //        if (rules.Output.Equals("Iya"))
-            //        {
-            //            fuzzyNumberIya.Add(Mathf.Min(mBanyak, mDekat));
-            //        }
-            //        else if (rules.Output.Equals("Tidak"))
-            //        {
-            //            fuzzyNumberTidak.Add(Mathf.Min(mBanyak, mDekat));
-            //        }
-            //    }
-            //});
+        //RulesList.ForEachWithIndex((rules, index) => {
+        //    if (rules.Rules1.Equals("Turun") && rules.Rules2.Equals("Banyak"))
+        //    {
+        //        Debug.LogFormat("Rules {1} : Min {0} : {2}", Mathf.Min(mSedikit, mJauh), (index + 1), rules.Output);
+        //        if (rules.Output.Equals("Iya"))
+        //        {
+        //            fuzzyNumberIya.Add(Mathf.Min(mSedikit, mJauh));
+        //        }
+        //        else if (rules.Output.Equals("Tidak"))
+        //        {
+        //            fuzzyNumberTidak.Add(Mathf.Min(mSedikit, mJauh));
+        //        }
+        //    }
+        //    else if (rules.Rules1.Equals("Turun") && rules.Rules2.Equals("Sedikit"))
+        //    {
+        //        Debug.LogFormat("Rules {1} : Min {0} : {2}", Mathf.Min(mSedikit, mDekat), (index + 1), rules.Output);
+        //        if (rules.Output.Equals("Iya"))
+        //        {
+        //            fuzzyNumberIya.Add(Mathf.Min(mSedikit, mDekat));
+        //        }
+        //        else if (rules.Output.Equals("Tidak"))
+        //        {
+        //            fuzzyNumberTidak.Add(Mathf.Min(mSedikit, mDekat));
+        //        }
+        //    }
+        //    else if (rules.Rules1.Equals("Naik") && rules.Rules2.Equals("Banyak"))
+        //    {
+        //        Debug.LogFormat("Rules {1} : Min {0} : {2}", Mathf.Min(mBanyak, mJauh), (index + 1), rules.Output);
+        //        if (rules.Output.Equals("Iya"))
+        //        {
+        //            fuzzyNumberIya.Add(Mathf.Min(mBanyak, mJauh));
+        //        }
+        //        else if (rules.Output.Equals("Tidak"))
+        //        {
+        //            fuzzyNumberTidak.Add(Mathf.Min(mBanyak, mJauh));
+        //        }
+        //    }
+        //    else if (rules.Rules1.Equals("Naik") && rules.Rules2.Equals("Sedikit"))
+        //    {
+        //        Debug.LogFormat("Rules {1} : Min {0} : {2}", Mathf.Min(mBanyak, mDekat), (index + 1), rules.Output);
+        //        if (rules.Output.Equals("Iya"))
+        //        {
+        //            fuzzyNumberIya.Add(Mathf.Min(mBanyak, mDekat));
+        //        }
+        //        else if (rules.Output.Equals("Tidak"))
+        //        {
+        //            fuzzyNumberTidak.Add(Mathf.Min(mBanyak, mDekat));
+        //        }
+        //    }
+        //});
         #endregion
         Transform operasiFuzzyContainer = operasiFuzzy.transform.Find("OperasiFuzzyContainer");
         operasiFuzzyContainer.gameObject.SetActive(false);
@@ -220,6 +217,8 @@ public class FuzzyLogic : MonoBehaviour
         RulesList.ForEachWithIndex((rules, index) =>
         {
             Transform cloneTransform = Instantiate(operasiFuzzyContainer, operasiFuzzy.transform);
+            cloneTransform.tag = "CLONE";
+            Debug.Log("TAGGING " + cloneTransform.tag);
             RectTransform entryRectTransform = cloneTransform.GetComponent<RectTransform>();
             if (rules.Rules1.Equals("Sedikit") && rules.Rules2.Equals("Jauh"))
             {

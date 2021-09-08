@@ -1773,8 +1773,6 @@ MonoBehaviour:
   jarakJauh: 450
   criticalTidak: 0
   criticalIya: 7000
-  defuzzifikasiIya: []
-  defuzzifikasiTidak: []
   hasil: 0
   tabelRules: {fileID: 252528121}
   fuzzifikasi: {fileID: 463922918}

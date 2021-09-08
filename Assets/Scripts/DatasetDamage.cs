@@ -14,8 +14,8 @@ public class DatasetDamage : MonoBehaviour
 
     private void Awake()
     {
-        variabelPertama.text = 1000f.ToString();
-        variabelKedua.text = 5000f.ToString();
+        variabelPertama.text = 5000f.ToString();
+        variabelKedua.text = 1000f.ToString();
     }
     public void Submit()
     {
