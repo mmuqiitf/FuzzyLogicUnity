@@ -14,7 +14,7 @@ public class DatasetJarak : MonoBehaviour
     private void Awake()
     {
         variabelPertama.text = 100f.ToString();
-        variabelKedua.text = 600f.ToString();
+        variabelKedua.text = 300f.ToString();
     }
     public void Submit()
     {

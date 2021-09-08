@@ -15,7 +15,7 @@ public class DatasetCritical : MonoBehaviour
     private void Awake()
     {
         variabelPertama.text = 2000f.ToString();
-        variabelKedua.text = 7000f.ToString();
+        variabelKedua.text = 5000f.ToString();
     }
 
     public void Submit()

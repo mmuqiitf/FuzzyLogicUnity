@@ -61,10 +61,10 @@ public class FuzzyLogic : MonoBehaviour
         Critical critical = new Critical(criticalTidak, criticalIya);
 
         List<Rules> RulesList = new List<Rules>();
-        RulesList.Add(new Rules(damage.LabelSedikit, jarak.LabelDekat, critical.LabelTidak));
-        RulesList.Add(new Rules(damage.LabelSedikit, jarak.LabelDekat, critical.LabelTidak));
-        RulesList.Add(new Rules(damage.LabelBanyak, jarak.LabelJauh, critical.LabelIya));
-        RulesList.Add(new Rules(damage.LabelBanyak, jarak.LabelJauh, critical.LabelIya));
+        RulesList.Add(new Rules(damage.LabelSedikit, jarak.LabelJauh, critical.LabelTidak));
+        RulesList.Add(new Rules(damage.LabelSedikit, jarak.LabelDekat, critical.LabelIya));
+        RulesList.Add(new Rules(damage.LabelBanyak, jarak.LabelJauh, critical.LabelTidak));
+        RulesList.Add(new Rules(damage.LabelBanyak, jarak.LabelDekat, critical.LabelIya));
 
         tabelRules.CallRules(RulesList);
 
@@ -72,6 +72,8 @@ public class FuzzyLogic : MonoBehaviour
         mSedikit = damage.mSedikit(float.Parse(inputDamage.text));
         mDekat = jarak.mDekat(float.Parse(inputJarak.text));
         mJauh = jarak.mJauh(float.Parse(inputJarak.text));
+        Debug.Log("mSedikit  " + mSedikit);
+        Debug.Log("mJauh  " + mJauh);
 
         Fuzzifikasi(fuzzifikasi);
 
@@ -222,8 +224,8 @@ public class FuzzyLogic : MonoBehaviour
             RectTransform entryRectTransform = cloneTransform.GetComponent<RectTransform>();
             if (rules.Rules1.Equals("Sedikit") && rules.Rules2.Equals("Jauh"))
             {
-                Debug.LogFormat("Rules {1} : Min {0} : {2}", Mathf.Min(mSedikit, mJauh), (index + 1), rules.Output);
-                cloneTransform.Find("OperasiFuzzyText").GetComponent<TMP_Text>().text = "[R" + index + "] " + Mathf.Min(mSedikit, mJauh) +  " " + rules.Output;
+                Debug.LogFormat("Rules {1} : Min {0} : {2} - {3} - {4}", Mathf.Min(mSedikit, mJauh), (index + 1), rules.Output, mSedikit, mJauh);
+                cloneTransform.Find("OperasiFuzzyText").GetComponent<TMP_Text>().text = "[R" + (index + 1) + "] " + Mathf.Min(mSedikit, mJauh) +  " " + rules.Output;
                 if (rules.Output.Equals("Iya"))
                 {
                     fuzzyNumberIya.Add(Mathf.Min(mSedikit, mJauh));
@@ -236,7 +238,7 @@ public class FuzzyLogic : MonoBehaviour
             else if (rules.Rules1.Equals("Sedikit") && rules.Rules2.Equals("Dekat"))
             {
                 Debug.LogFormat("Rules {1} : Min {0} : {2}", Mathf.Min(mSedikit, mDekat), (index + 1), rules.Output);
-                cloneTransform.Find("OperasiFuzzyText").GetComponent<TMP_Text>().text = "[R" + index + "] " + Mathf.Min(mSedikit, mDekat) + " " + rules.Output;
+                cloneTransform.Find("OperasiFuzzyText").GetComponent<TMP_Text>().text = "[R" + (index + 1) + "] " + Mathf.Min(mSedikit, mDekat) + " " + rules.Output;
                 if (rules.Output.Equals("Iya"))
                 {
                     fuzzyNumberIya.Add(Mathf.Min(mSedikit, mDekat));
@@ -249,7 +251,7 @@ public class FuzzyLogic : MonoBehaviour
             else if (rules.Rules1.Equals("Banyak") && rules.Rules2.Equals("Jauh"))
             {
                 Debug.LogFormat("Rules {1} : Min {0} : {2}", Mathf.Min(mBanyak, mJauh), (index + 1), rules.Output); 
-                cloneTransform.Find("OperasiFuzzyText").GetComponent<TMP_Text>().text = "[R" + index + "] " + Mathf.Min(mBanyak, mJauh) + " " + rules.Output;
+                cloneTransform.Find("OperasiFuzzyText").GetComponent<TMP_Text>().text = "[R" + (index + 1) + "] " + Mathf.Min(mBanyak, mJauh) + " " + rules.Output;
                 if (rules.Output.Equals("Iya"))
                 {
                     fuzzyNumberIya.Add(Mathf.Min(mBanyak, mJauh));
@@ -262,7 +264,7 @@ public class FuzzyLogic : MonoBehaviour
             else if (rules.Rules1.Equals("Banyak") && rules.Rules2.Equals("Dekat"))
             {
                 Debug.LogFormat("Rules {1} : Min {0} : {2}", Mathf.Min(mBanyak, mDekat), (index + 1), rules.Output);
-                cloneTransform.Find("OperasiFuzzyText").GetComponent<TMP_Text>().text = "[R" + index + "] " + Mathf.Min(mBanyak, mDekat) + " " + rules.Output;
+                cloneTransform.Find("OperasiFuzzyText").GetComponent<TMP_Text>().text = "[R" + (index + 1) + "] " + Mathf.Min(mBanyak, mDekat) + " " + rules.Output;
                 if (rules.Output.Equals("Iya"))
                 {
                     fuzzyNumberIya.Add(Mathf.Min(mBanyak, mDekat));

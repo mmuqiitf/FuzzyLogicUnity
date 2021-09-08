@@ -17,7 +17,7 @@ public class TabelRules : MonoBehaviour
             Transform entryTransform = Instantiate(RulesContainer, transform);
             RectTransform entryRectTransform = entryTransform.GetComponent<RectTransform>();
             entryTransform.Find("RulesText").GetComponent<TMP_Text>().text = "Jika Damage " + rules.Rules1 + " dan Jarak " 
-            + rules.Rules2 + " maka Critical = " + rules.Output + " [R" + index + "]" ;
+            + rules.Rules2 + " maka Critical = " + rules.Output + " [R" + (index + 1) + "]" ;
             entryRectTransform.anchoredPosition = new Vector2(0, RulesContainer.transform.localPosition.y + (-heightSeperator * index));
             entryTransform.gameObject.SetActive(true);
         });
