@@ -5,17 +5,16 @@ using System.Linq;
 using TMPro;
 using UnityEngine.UI;
 
-public class DatasetPermintaan : MonoBehaviour
+public class DatasetJarak : MonoBehaviour
 {
     [SerializeField] private InputField variabelPertama, variabelKedua;
     private List<float> variabelList = new List<float>();
     private List<float> value_y = new List<float>() { 0, 1 };
     public GameObject gameObject;
-
-    private void Start()
+    private void Awake()
     {
-        variabelPertama.text = 1000f.ToString();
-        variabelKedua.text = 5000f.ToString();
+        variabelPertama.text = 100f.ToString();
+        variabelKedua.text = 600f.ToString();
     }
     public void Submit()
     {
@@ -30,5 +29,4 @@ public class DatasetPermintaan : MonoBehaviour
 
         gameObject.GetComponent<Window_Graph>().ShowGraph(variabelList, value_y, variabelListReverse, value_yReverse);
     }
-
 }

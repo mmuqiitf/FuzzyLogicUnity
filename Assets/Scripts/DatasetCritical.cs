@@ -5,14 +5,14 @@ using System.Linq;
 using TMPro;
 using UnityEngine.UI;
 
-public class DatasetProduksi : MonoBehaviour
+public class DatasetCritical : MonoBehaviour
 {
     [SerializeField] private InputField variabelPertama, variabelKedua;
     private List<float> variabelList = new List<float>();
     private List<float> value_y = new List<float>() { 0, 1 };
     public GameObject gameObject;
 
-    private void Start()
+    private void Awake()
     {
         variabelPertama.text = 2000f.ToString();
         variabelKedua.text = 7000f.ToString();

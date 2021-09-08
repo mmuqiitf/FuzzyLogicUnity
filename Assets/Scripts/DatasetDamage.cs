@@ -5,16 +5,17 @@ using System.Linq;
 using TMPro;
 using UnityEngine.UI;
 
-public class DatasetPersediaan : MonoBehaviour
+public class DatasetDamage : MonoBehaviour
 {
     [SerializeField] private InputField variabelPertama, variabelKedua;
     private List<float> variabelList = new List<float>();
     private List<float> value_y = new List<float>() { 0, 1 };
     public GameObject gameObject;
-    private void Start()
+
+    private void Awake()
     {
-        variabelPertama.text = 100f.ToString();
-        variabelKedua.text = 600f.ToString();
+        variabelPertama.text = 1000f.ToString();
+        variabelKedua.text = 5000f.ToString();
     }
     public void Submit()
     {
@@ -29,4 +30,5 @@ public class DatasetPersediaan : MonoBehaviour
 
         gameObject.GetComponent<Window_Graph>().ShowGraph(variabelList, value_y, variabelListReverse, value_yReverse);
     }
+
 }
